@@ -8,7 +8,7 @@ import { HealthModule } from './core/health/health.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MicroservicesModule } from './core/microservices/microservices.module';
-import { ItemsModule } from './services/items/items.module';
+import { UsersModule } from './services/users/users.module';
 
 // noinspection TypeScriptValidateTypes
 @Module({
@@ -31,7 +31,7 @@ import { ItemsModule } from './services/items/items.module';
     }),
     MicroservicesModule,
     HealthModule,
-    ItemsModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
