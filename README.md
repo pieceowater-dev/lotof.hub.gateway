@@ -1,4 +1,4 @@
-# lotof.template.gateway
+# lotof.hub.gateway
 
 ## Description
 This project is a gateway service built using the NestJS framework. It serves as a central point for handling requests and routing them to appropriate microservices. The gateway also integrates with RabbitMQ for message brokering. 🚀
