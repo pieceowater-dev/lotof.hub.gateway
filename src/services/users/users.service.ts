@@ -29,11 +29,7 @@ export class UsersService {
   }
 
   async findOne(id: string): Promise<Observable<User>> {
-    return this.usersProvider.sendWithTimeout<User, ID>(
-      'findOneUser',
-      { id },
-      3000,
-    );
+    return this.usersProvider.sendWithTimeout<User, ID>('findOneUser', { id });
   }
 
   async update(
