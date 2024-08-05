@@ -35,4 +35,12 @@ export class UsersResolver {
   ): Promise<Observable<PaginatedEntity<User>>> {
     return this.usersService.findAll(listUserFilterInput);
   }
+
+  @Query(() => User, { name: 'user' })
+  async findOne(
+    @Args('id', { type: () => String })
+    id: string,
+  ): Promise<Observable<User>> {
+    return await this.usersService.findOne(id);
+  }
 }

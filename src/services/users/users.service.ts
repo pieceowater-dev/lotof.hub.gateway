@@ -6,6 +6,7 @@ import { PaginatedEntity } from '../utils/paginated.list/paginated.entity';
 import { UpdateUserInput } from './dto/update-user.input';
 import { UsersGateMicroservicesProvider } from '../../core/microservices/microservices.users-provider';
 import { Injectable } from '@nestjs/common';
+import { ID } from '../utils/ID';
 
 @Injectable()
 export class UsersService {
@@ -25,6 +26,14 @@ export class UsersService {
       PaginatedEntity<User>,
       ListUserFilterInput
     >('findAllUser', listUserFilterInput);
+  }
+
+  async findOne(id: string): Promise<Observable<User>> {
+    return this.usersProvider.sendWithTimeout<User, ID>(
+      'findOneUser',
+      { id },
+      3000,
+    );
   }
 
   async update(
