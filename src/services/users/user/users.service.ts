@@ -2,11 +2,11 @@ import { CreateUserInput } from './dto/create-user.input';
 import { Observable } from 'rxjs';
 import { User } from './entities/user.entity';
 import { ListUserFilterInput } from './dto/list-user.filter.input';
-import { PaginatedEntity } from '../utils/paginated.list/paginated.entity';
+import { PaginatedEntity } from '../../utils/paginated.list/paginated.entity';
 import { UpdateUserInput } from './dto/update-user.input';
-import { UsersGateMicroservicesProvider } from '../../core/microservices/microservices.users-provider';
+import { UsersGateMicroservicesProvider } from '../../../core/microservices/microservices.users-provider';
 import { Injectable } from '@nestjs/common';
-import { ID } from '../utils/ID';
+import { ID } from '../../utils/ID';
 
 @Injectable()
 export class UsersService {
@@ -43,5 +43,13 @@ export class UsersService {
         ...updateUserInput,
       },
     );
+  }
+
+  findFriendships(userId: string) {
+    // return this.friendshipRepository.find({ where: { user: { id: userId } }, relations: ['friend'] });
+  }
+
+  findFriends(userId: string) {
+    // return this.friendshipRepository.find({ where: { friend: { id: userId } }, relations: ['user'] });
   }
 }

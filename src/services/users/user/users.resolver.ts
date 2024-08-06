@@ -1,4 +1,4 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 import { CreateUserInput } from './dto/create-user.input';
@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
 import { UpdateUserInput } from './dto/update-user.input';
 import { PaginatedUserList } from './entities/paginated.user-list.entity';
 import { ListUserFilterInput } from './dto/list-user.filter.input';
-import { PaginatedEntity } from '../utils/paginated.list/paginated.entity';
+import { PaginatedEntity } from '../../utils/paginated.list/paginated.entity';
+import { Friendship } from '../friendship/entities/friendship.entity';
 
 @Resolver(() => User)
 export class UsersResolver {
@@ -42,5 +43,15 @@ export class UsersResolver {
     id: string,
   ): Promise<Observable<User>> {
     return await this.usersService.findOne(id);
+  }
+
+  @ResolveField(() => [Friendship])
+  friendships(@Parent() user: User) {
+    return this.userService.findFriendships(user.id);
+  }
+
+  @ResolveField(() => [Friendship])
+  friends(@Parent() user: User) {
+    return this.userService.findFriends(user.id);
   }
 }
