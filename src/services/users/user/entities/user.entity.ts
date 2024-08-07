@@ -12,9 +12,6 @@ export class User {
   @Field()
   email: string;
 
-  @Field(() => [Friendship], { nullable: true })
-  friendships?: Friendship[];
-
-  @Field(() => [Friendship], { nullable: true })
+  @Field(() => [Friendship])
   friends?: Friendship[];
 }

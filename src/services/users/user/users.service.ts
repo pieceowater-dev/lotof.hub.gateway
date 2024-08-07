@@ -44,12 +44,4 @@ export class UsersService {
       },
     );
   }
-
-  findFriendships(userId: string) {
-    // return this.friendshipRepository.find({ where: { user: { id: userId } }, relations: ['friend'] });
-  }
-
-  findFriends(userId: string) {
-    // return this.friendshipRepository.find({ where: { friend: { id: userId } }, relations: ['user'] });
-  }
 }

@@ -1,13 +1,10 @@
 import { Module } from '@nestjs/common';
-// import { FriendshipService } from './friendship.service';
 import { FriendshipResolver } from './friendship.resolver';
 import { MicroservicesModule } from '../../../core/microservices/microservices.module';
+import { FriendshipService } from './friendship.service';
 
 @Module({
   imports: [MicroservicesModule],
-  providers: [
-    // FriendshipService,
-    FriendshipResolver,
-  ],
+  providers: [FriendshipService, FriendshipResolver],
 })
 export class FriendshipModule {}

@@ -4,9 +4,7 @@ import { UsersGateMicroservicesProvider } from '../microservices/microservices.u
 
 @Resolver()
 export class HealthResolver {
-  constructor(
-    private usersProvider: UsersGateMicroservicesProvider,
-  ) {}
+  constructor(private usersProvider: UsersGateMicroservicesProvider) {}
 
   @Query(() => String)
   async health(): Promise<string> {

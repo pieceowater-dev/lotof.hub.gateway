@@ -7,8 +7,5 @@ export class Friendship {
   id: number;
 
   @Field(() => User)
-  user: User;
-
-  @Field(() => User)
   friend: User;
 }
