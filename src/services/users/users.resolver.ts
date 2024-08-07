@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { UpdateUserInput } from './dto/update-user.input';
 import { PaginatedUserList } from './entities/paginated.user-list.entity';
 import { ListUserFilterInput } from './dto/list-user.filter.input';
-import { PaginatedEntity } from '../utils/paginated.list/paginated.entity';
+import { PaginatedEntity } from '@pieceowater-dev/lotof.lib.broadcaster/utils/pagination/entity.pagination';
 
 @Resolver(() => User)
 export class UsersResolver {
