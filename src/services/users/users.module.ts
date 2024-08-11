@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { ItemsService } from './items.service';
-import { ItemsResolver } from './items.resolver';
+import { UsersResolver } from './users.resolver';
+import { UsersService } from './users.service';
 import { MicroservicesModule } from '../../core/microservices/microservices.module';
 
 @Module({
   imports: [MicroservicesModule],
-  providers: [ItemsResolver, ItemsService],
+  providers: [UsersResolver, UsersService],
 })
-export class ItemsModule {}
+export class UsersModule {}

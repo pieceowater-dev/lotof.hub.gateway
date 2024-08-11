@@ -1,16 +1,16 @@
 // src/health/health.resolver.ts
 import { Resolver, Query } from '@nestjs/graphql';
-import { TemplateGateMicroservicesProvider } from '../microservices/microservices.provider';
+import { UsersGateMicroservicesProvider } from '../microservices/microservices.users-provider';
 
 @Resolver()
 export class HealthResolver {
-  constructor(private templateProvider: TemplateGateMicroservicesProvider) {}
+  constructor(private usersProvider: UsersGateMicroservicesProvider) {}
 
   @Query(() => String)
   async health(): Promise<string> {
     try {
       const responses = await Promise.all([
-        this.templateProvider
+        this.usersProvider
           .sendWithTimeout<string, string>('ping', '', 50)
           .toPromise(),
       ]);

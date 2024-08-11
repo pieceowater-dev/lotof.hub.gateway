@@ -3,22 +3,22 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientsModule } from '@nestjs/microservices';
 import { createRabbitMQOptions } from '../config/rabbitmq.config';
-import { TemplateGateMicroservicesProvider } from './microservices.provider';
+import { UsersGateMicroservicesProvider } from './microservices.users-provider';
 
 @Module({
   imports: [
     ClientsModule.registerAsync([
       {
-        name: 'TEMPLATE_SERVICE',
+        name: 'USERS_SERVICE',
         imports: [ConfigModule],
         useFactory: (configService: ConfigService) => ({
-          ...createRabbitMQOptions('template_queue', configService),
+          ...createRabbitMQOptions('users_queue', configService),
         }),
         inject: [ConfigService],
       },
     ]),
   ],
-  providers: [TemplateGateMicroservicesProvider],
-  exports: [ClientsModule, TemplateGateMicroservicesProvider],
+  providers: [UsersGateMicroservicesProvider],
+  exports: [ClientsModule, UsersGateMicroservicesProvider],
 })
 export class MicroservicesModule {}
