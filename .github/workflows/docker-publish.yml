@@ -36,51 +36,9 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-      - name: Get the current version tag
-        id: get_version
-        run: |
-          git fetch --tags
-          TAG=$(git describe --tags $(git rev-list --tags --max-count=1) || echo "v0.0.0")
-          echo "Current Tag: $TAG"
-          echo "CURRENT_TAG=$TAG" >> $GITHUB_ENV
-
-      - name: Calculate next version
-        id: calculate_version
-        run: |
-          # Strip the 'v' from the tag and split into an array
-          VERSION=${CURRENT_TAG#v}
-          IFS='.' read -r -a VERSION_PARTS <<< "$VERSION"
-          MAJOR=${VERSION_PARTS[0]}
-          MINOR=${VERSION_PARTS[1]}
-          PATCH=${VERSION_PARTS[2]}
-
-          # Increment the patch version
-          PATCH=$((PATCH + 1))
-
-          # Form the new tag
-          NEW_TAG="v$MAJOR.$MINOR.$PATCH"
-
-          echo "New Tag: $NEW_TAG"
-          echo "NEW_TAG=$NEW_TAG" >> $GITHUB_ENV
-
-      - name: Create and push new tag
-        run: |
-          git tag ${{ env.NEW_TAG }}
-          git push origin ${{ env.NEW_TAG }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create GitHub Release
-        id: create_release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: ${{ env.NEW_TAG }}
-          name: Release ${{ env.NEW_TAG }}
-          body: "Release of version ${{ env.NEW_TAG }}."
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Get short commit SHA
+        id: get_sha
+        run: echo "GIT_SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
       - name: Build and push Docker image
         id: build-and-push
@@ -90,7 +48,7 @@ jobs:
           push: true
           tags: |
             ${{ steps.meta.outputs.tags }}
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.NEW_TAG }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.GIT_SHORT_SHA }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
