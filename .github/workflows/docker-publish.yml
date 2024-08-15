@@ -36,24 +36,47 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-      - name: Increment version and create tag
-        id: tag_version
-        uses: chancie86/github-action-version-tag@v0.0.2
-        with:
-          incrementType: Patch  # options: Major, Minor, Patch
-          push: true
+      - name: Get the current version tag
+        id: get_version
+        run: |
+          git fetch --tags
+          TAG=$(git describe --tags $(git rev-list --tags --max-count=1) || echo "v0.0.0")
+          echo "Current Tag: $TAG"
+          echo "CURRENT_TAG=$TAG" >> $GITHUB_ENV
+
+      - name: Calculate next version
+        id: calculate_version
+        run: |
+          # Strip the 'v' from the tag and split into an array
+          VERSION=${{ env.CURRENT_TAG#v }}
+          IFS='.' read -r -a VERSION_PARTS <<< "$VERSION"
+          MAJOR=${VERSION_PARTS[0]}
+          MINOR=${VERSION_PARTS[1]}
+          PATCH=${VERSION_PARTS[2]}
+
+          # Increment the patch version
+          PATCH=$((PATCH + 1))
+
+          # Form the new tag
+          NEW_TAG="v$MAJOR.$MINOR.$PATCH"
+
+          echo "New Tag: $NEW_TAG"
+          echo "NEW_TAG=$NEW_TAG" >> $GITHUB_ENV
+
+      - name: Create and push new tag
+        run: |
+          git tag ${{ env.NEW_TAG }}
+          git push origin ${{ env.NEW_TAG }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GIT_USER_NAME: ${{ github.actor }}
-          GIT_USER_EMAIL: github@contoso.org  # adjust this as needed
 
       - name: Create GitHub Release
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ steps.tag_version.outputs.new_version }}
-          name: Release ${{ steps.tag_version.outputs.new_version }}
-          body: "Release of version ${{ steps.tag_version.outputs.new_version }}."
+          tag_name: ${{ env.NEW_TAG }}
+          name: Release ${{ env.NEW_TAG }}
+          body: "Release of version ${{ env.NEW_TAG }}."
           draft: false
           prerelease: false
         env:
@@ -67,7 +90,7 @@ jobs:
           push: true
           tags: |
             ${{ steps.meta.outputs.tags }}
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.tag_version.outputs.new_version }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.NEW_TAG }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
