@@ -8,4 +8,7 @@ export class Friendship {
 
   @Field(() => User)
   friend: User;
+
+  @Field(() => User)
+  user: User;
 }

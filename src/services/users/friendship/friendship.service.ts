@@ -3,7 +3,10 @@ import { UsersGateMicroservicesProvider } from '../../../core/microservices/micr
 import { Observable } from 'rxjs';
 import { Friendship } from './entities/friendship.entity';
 import { CreateFriendshipInput } from './dto/create-friendship.input';
-import { ID } from '../../utils/ID';
+import { AcceptFriendshipInput } from './dto/accept-friendship.input';
+import { RemoveFriendshipInput } from './dto/remove-friendship.input';
+import { FriendshipFilterDto } from './dto/friendship.filter.dto';
+import { PaginatedEntity } from '../../utils/paginated.list/paginated.entity';
 
 @Injectable()
 export class FriendshipService {
@@ -18,19 +21,30 @@ export class FriendshipService {
     >('createFriendship', createFriendshipInput);
   }
 
-  async findFriends(userId: string): Promise<Observable<Friendship[]>> {
-    return this.friendshipProvider.sendWithTimeout<Friendship[], ID>(
-      'findFriends',
-      { id: userId },
-    );
+  async accept(
+    acceptFriendshipInput: AcceptFriendshipInput,
+  ): Promise<Observable<Friendship>> {
+    return this.friendshipProvider.sendWithTimeout<
+      Friendship,
+      AcceptFriendshipInput
+    >('acceptRequest', acceptFriendshipInput);
   }
 
-  // async remove(
-  //   removeFriendshipInput: RemoveFriendshipInput,
-  // ): Promise<Observable<Friendship>> {
-  //   return this.friendshipProvider.sendWithTimeout<
-  //     Friendship,
-  //     RemoveFriendshipInput
-  //   >('removeFriendship', removeFriendshipInput);
-  // }
+  async remove(
+    removeFriendshipInput: RemoveFriendshipInput,
+  ): Promise<Observable<Friendship>> {
+    return this.friendshipProvider.sendWithTimeout<
+      Friendship,
+      RemoveFriendshipInput
+    >('removeRequest', removeFriendshipInput);
+  }
+
+  async friendshipRequestList(
+    friendshipFilterDto: FriendshipFilterDto,
+  ): Promise<Observable<PaginatedEntity<Friendship>>> {
+    return this.friendshipProvider.sendWithTimeout<
+      PaginatedEntity<Friendship>,
+      FriendshipFilterDto
+    >('getFriendshipRequestList', friendshipFilterDto);
+  }
 }
