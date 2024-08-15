@@ -48,7 +48,7 @@ jobs:
         id: calculate_version
         run: |
           # Strip the 'v' from the tag and split into an array
-          VERSION=${{ env.CURRENT_TAG#v }}
+          VERSION=${CURRENT_TAG#v}
           IFS='.' read -r -a VERSION_PARTS <<< "$VERSION"
           MAJOR=${VERSION_PARTS[0]}
           MINOR=${VERSION_PARTS[1]}
