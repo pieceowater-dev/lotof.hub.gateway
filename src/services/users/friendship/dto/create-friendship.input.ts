@@ -6,10 +6,10 @@ export class CreateFriendshipInput {
   @Field()
   @IsNotEmpty()
   @IsUUID()
-  userId: string;
+  user: string;
 
   @Field()
   @IsNotEmpty()
   @IsUUID()
-  friendId: string;
+  friend: string;
 }
