@@ -11,7 +11,7 @@ export class DefaultFilterInput {
 
   @Field(() => DefaultFilterPaginationInput, {
     nullable: true,
-    defaultValue: { page: 0, length: FilterPaginationLengthEnum.TEN },
+    defaultValue: { page: 1, length: FilterPaginationLengthEnum.TEN },
   })
   pagination: DefaultFilterPaginationInput;
 

@@ -7,7 +7,7 @@ registerEnumType(FilterPaginationLengthEnum, {
 
 @InputType()
 export class DefaultFilterPaginationInput {
-  @Field({ nullable: true, defaultValue: 0 })
+  @Field({ nullable: true, defaultValue: 1 })
   page: number;
 
   @Field(() => FilterPaginationLengthEnum, {

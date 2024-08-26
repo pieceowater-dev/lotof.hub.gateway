@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { UpdateUserInput } from './dto/update-user.input';
 import { PaginatedUserList } from './entities/paginated.user-list.entity';
 import { ListUserFilterInput } from './dto/list-user.filter.input';
-import { PaginatedEntity } from '@pieceowater-dev/lotof.lib.broadcaster/utils/pagination/entity.pagination';
+import { PaginatedEntity } from '../../utils/paginated.list/paginated.entity';
 
 @Resolver(() => User)
 export class UsersResolver {
@@ -42,5 +42,13 @@ export class UsersResolver {
     id: string,
   ): Promise<Observable<User>> {
     return await this.usersService.findOne(id);
+  }
+
+  @Query(() => User, { name: 'user' })
+  async findOneWithFriends(
+    @Args('id', { type: () => String })
+    id: string,
+  ): Promise<Observable<User>> {
+    return await this.usersService.findOneWithFriends(id);
   }
 }

@@ -11,6 +11,6 @@ export class User {
   @Field()
   email: string;
 
-  @Field({ nullable: true })
-  password: string;
+  @Field(() => [User])
+  friends?: User[];
 }
