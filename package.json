@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "author": "pieceowater-dev",
-  "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "update": "npx npm-check-updates -f @pieceowater-dev/lotof.lib.broadcaster -u && npm install",
     "build": "nest build",
@@ -29,7 +28,7 @@
     "@nestjs/graphql": "^12.2.0",
     "@nestjs/microservices": "^10.3.10",
     "@nestjs/platform-express": "^10.0.0",
-    "@pieceowater-dev/lotof.lib.broadcaster": "^1.0.29",
+    "@pieceowater-dev/lotof.lib.broadcaster": "^1.0.31",
     "amqp-connection-manager": "^4.1.14",
     "amqplib": "^0.10.4",
     "apollo-server-express": "^3.13.0",

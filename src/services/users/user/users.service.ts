@@ -2,10 +2,10 @@ import { CreateUserInput } from './dto/create-user.input';
 import { Observable } from 'rxjs';
 import { User } from './entities/user.entity';
 import { ListUserFilterInput } from './dto/list-user.filter.input';
-import { PaginatedEntity } from '../../utils/paginated.list/paginated.entity';
 import { UpdateUserInput } from './dto/update-user.input';
 import { UsersGateMicroservicesProvider } from '../../../core/microservices/microservices.users-provider';
 import { Injectable } from '@nestjs/common';
+import { UserUuid } from '../../utils/user/user-uuid';
 import { ID } from '../../utils/ID';
 
 @Injectable()
@@ -29,7 +29,9 @@ export class UsersService {
   }
 
   async findOne(id: string): Promise<Observable<User>> {
-    return this.usersProvider.sendWithTimeout<User, ID>('findOneUser', { id });
+    return this.usersProvider.sendWithTimeout<User, UserUuid>('findOneUser', {
+      id,
+    });
   }
 
   async findOneWithFriends(id: string): Promise<Observable<User>> {
