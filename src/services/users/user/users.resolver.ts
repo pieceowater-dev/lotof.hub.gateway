@@ -43,4 +43,12 @@ export class UsersResolver {
   ): Promise<Observable<User>> {
     return await this.usersService.findOne(id);
   }
+
+  @Query(() => User, { name: 'user' })
+  async findOneWithFriends(
+    @Args('id', { type: () => String })
+    id: string,
+  ): Promise<Observable<User>> {
+    return await this.usersService.findOneWithFriends(id);
+  }
 }

@@ -1,5 +1,4 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Friendship } from '../../friendship/entities/friendship.entity';
 
 @ObjectType()
 export class User {
@@ -12,6 +11,6 @@ export class User {
   @Field()
   email: string;
 
-  @Field(() => [Friendship])
-  friends?: Friendship[];
+  @Field(() => [User])
+  friends?: User[];
 }

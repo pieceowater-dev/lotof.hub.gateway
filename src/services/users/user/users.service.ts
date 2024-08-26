@@ -32,6 +32,13 @@ export class UsersService {
     return this.usersProvider.sendWithTimeout<User, ID>('findOneUser', { id });
   }
 
+  async findOneWithFriends(id: string): Promise<Observable<User>> {
+    return this.usersProvider.sendWithTimeout<User, ID>(
+      'findOneUserWithFriends',
+      { id },
+    );
+  }
+
   async update(
     id: string,
     updateUserInput: UpdateUserInput,
