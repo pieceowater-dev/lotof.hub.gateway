@@ -1,4 +1,4 @@
-import { Field, InputType, registerEnumType } from '@nestjs/graphql';
+import { Field, InputType, Int, registerEnumType } from '@nestjs/graphql';
 import { FilterPaginationLengthEnum } from '@pieceowater-dev/lotof.lib.broadcaster/utils/filter/pagination.filter';
 
 registerEnumType(FilterPaginationLengthEnum, {
@@ -7,7 +7,7 @@ registerEnumType(FilterPaginationLengthEnum, {
 
 @InputType()
 export class DefaultFilterPaginationInput {
-  @Field({ nullable: true, defaultValue: 1 })
+  @Field(() => Int, { nullable: true, defaultValue: 1 })
   page: number;
 
   @Field(() => FilterPaginationLengthEnum, {
