@@ -6,7 +6,7 @@ import { CreateFriendshipInput } from './dto/create-friendship.input';
 import { AcceptFriendshipInput } from './dto/accept-friendship.input';
 import { RemoveFriendshipInput } from './dto/remove-friendship.input';
 import { FriendshipFilterDto } from './dto/friendship.filter.dto';
-import { PaginatedEntity } from '../../utils/paginated.list/paginated.entity';
+import { PaginatedEntity } from '@pieceowater-dev/lotof.lib.broadcaster';
 
 @Injectable()
 export class FriendshipService {

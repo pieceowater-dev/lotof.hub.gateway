@@ -7,6 +7,7 @@ import { UsersGateMicroservicesProvider } from '../../../core/microservices/micr
 import { Injectable } from '@nestjs/common';
 import { UserUuid } from '../../utils/user/user-uuid';
 import { ID } from '../../utils/ID';
+import { PaginatedEntity } from '@pieceowater-dev/lotof.lib.broadcaster';
 
 @Injectable()
 export class UsersService {

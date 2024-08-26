@@ -3,11 +3,9 @@ import { Friendship } from './entities/friendship.entity';
 import { FriendshipService } from './friendship.service';
 import { Observable } from 'rxjs';
 import { CreateFriendshipInput } from './dto/create-friendship.input';
-import { PaginatedEntity } from '../../utils/paginated.list/paginated.entity';
 import { FriendshipFilterDto } from './dto/friendship.filter.dto';
 import { AcceptFriendshipInput } from './dto/accept-friendship.input';
 import { RemoveFriendshipInput } from './dto/remove-friendship.input';
-import { PaginatedList } from '../../utils/paginated.list/paginated.list';
 import { PaginatedFriendshipListDto } from './dto/paginated.friendship.list.dto';
 
 @Resolver(() => Friendship)
