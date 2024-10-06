@@ -3,8 +3,10 @@ import { ClientProxy } from '@nestjs/microservices';
 import { MicroservicesProvider } from '@pieceowater-dev/lotof.lib.broadcaster';
 
 @Injectable()
-export class UsersGateMicroservicesProvider extends MicroservicesProvider {
-  constructor(@Inject('USERS_SERVICE') protected usersClient: ClientProxy) {
-    super(usersClient);
+export class UsersMicroservicesProvider extends MicroservicesProvider {
+  constructor(
+    @Inject('USERS_MICROSERVICES') protected clientProxy: ClientProxy,
+  ) {
+    super(clientProxy);
   }
 }

@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { UsersGateMicroservicesProvider } from '../../../core/microservices/microservices.users-provider';
 import { Observable } from 'rxjs';
 import { Friendship } from './entities/friendship.entity';
 import { CreateFriendshipInput } from './dto/create-friendship.input';
@@ -7,10 +6,11 @@ import { AcceptFriendshipInput } from './dto/accept-friendship.input';
 import { RemoveFriendshipInput } from './dto/remove-friendship.input';
 import { FriendshipFilterDto } from './dto/friendship.filter.dto';
 import { PaginatedEntity } from '@pieceowater-dev/lotof.lib.broadcaster';
+import { UsersMicroservicesProvider } from '../user/users.microservices-provider';
 
 @Injectable()
 export class FriendshipService {
-  constructor(private friendshipProvider: UsersGateMicroservicesProvider) {}
+  constructor(private friendshipProvider: UsersMicroservicesProvider) {}
 
   async create(
     createFriendshipInput: CreateFriendshipInput,

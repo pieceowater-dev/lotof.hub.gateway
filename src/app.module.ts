@@ -7,9 +7,9 @@ import { join } from 'path';
 import { HealthModule } from './core/health/health.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MicroservicesModule } from './core/microservices/microservices.module';
 import { UsersModule } from './services/users/user/users.module';
 import { FriendshipModule } from './services/users/friendship/friendship.module';
+import { AuthModule } from './services/auth/auth.module';
 
 // noinspection TypeScriptValidateTypes
 @Module({
@@ -31,10 +31,10 @@ import { FriendshipModule } from './services/users/friendship/friendship.module'
         ),
       ],
     }),
-    MicroservicesModule,
     HealthModule,
     UsersModule,
     FriendshipModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
