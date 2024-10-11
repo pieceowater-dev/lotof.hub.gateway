@@ -9,7 +9,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './services/users/user/users.module';
 import { FriendshipModule } from './services/users/friendship/friendship.module';
-import { AuthModule } from './services/auth/auth.module';
+import { AuthModule } from './services/users/auth/auth.module';
 
 // noinspection TypeScriptValidateTypes
 @Module({
@@ -33,8 +33,8 @@ import { AuthModule } from './services/auth/auth.module';
     }),
     HealthModule,
     UsersModule,
-    FriendshipModule,
     AuthModule,
+    FriendshipModule,
   ],
   controllers: [AppController],
   providers: [AppService],
