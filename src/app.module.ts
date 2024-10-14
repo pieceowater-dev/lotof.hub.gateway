@@ -3,6 +3,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { CacheModule } from '@nestjs/cache-manager';
+
 import { join } from 'path';
 import { HealthModule } from './core/health/health.module';
 import { AppController } from './app.controller';
@@ -10,6 +12,7 @@ import { AppService } from './app.service';
 import { UsersModule } from './services/users/user/users.module';
 import { FriendshipModule } from './services/users/friendship/friendship.module';
 import { AuthModule } from './services/users/auth/auth.module';
+import { RedisOptions } from './core/redis';
 
 // noinspection TypeScriptValidateTypes
 @Module({
@@ -18,6 +21,7 @@ import { AuthModule } from './services/users/auth/auth.module';
       isGlobal: true,
       envFilePath: '.env',
     }),
+    CacheModule.registerAsync(RedisOptions),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'schema.gql'),
